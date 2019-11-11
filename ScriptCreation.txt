@@ -1,0 +1,130 @@
+DROP table IF EXISTS User_Project;
+DROP table IF EXISTS User_Conversation;
+DROP table IF EXISTS User_Meeting;
+DROP table IF EXISTS User;
+DROP table IF EXISTS Meeting;
+DROP table IF EXISTS Message;
+DROP table IF EXISTS Conversation;
+DROP table IF EXISTS Project;
+
+CREATE TABLE IF NOT EXISTS User (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(15) NOT NULL,
+    lastName VARCHAR(15) NOT NULL,
+    username VARCHAR(15) NOT NULL,
+    password VARCHAR(64) NOT NULL,
+    sex CHAR NOT NULL,
+    birth DATETIME,
+    photo TEXT,
+    UNIQUE(username)
+);
+
+CREATE TABLE IF NOT EXISTS Project (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(15) NOT NULL,
+  author_id INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS User_Project (
+  user_id INT UNSIGNED,
+  project_id INT UNSIGNED,
+  PRIMARY KEY (user_id, project_id)
+);
+
+/************* ALTER User Project for PK and FK *****************/
+
+
+ALTER TABLE User_Project
+  ADD CONSTRAINT fk_userProject_user
+    FOREIGN KEY (user_id)
+    REFERENCES User (id);
+
+ALTER TABLE User_Project
+  ADD CONSTRAINT fk_userProject_project
+    FOREIGN KEY (project_id)
+    REFERENCES Project(id);
+
+
+/***************************************************************/
+
+
+CREATE TABLE IF NOT EXISTS Meeting (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  begin DATETIME,
+  end DATETIME,
+  project_id INT UNSIGNED
+);
+
+
+ALTER TABLE Meeting
+  ADD CONSTRAINT fk_meeting_project
+    FOREIGN KEY (project_id)
+    REFERENCES Project (id);
+
+
+
+
+CREATE TABLE IF NOT EXISTS User_Meeting (
+	user_id INT UNSIGNED,
+	meeting_id INT UNSIGNED,
+
+  PRIMARY KEY (user_id, meeting_id)
+);
+
+/************* ALTER User Meeting for PK and FK *****************/
+
+
+ALTER TABLE User_Meeting
+  ADD CONSTRAINT fk_userMeeting_user
+    FOREIGN KEY (user_id)
+    REFERENCES User (id);
+
+ALTER TABLE User_Meeting
+  ADD CONSTRAINT fk_userMeeting_project
+    FOREIGN KEY (meeting_id)
+    REFERENCES Meeting (id);
+
+/**************************************************************/
+
+CREATE TABLE IF NOT EXISTS Conversation (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS User_Conversation (
+ 
+  user_id INT UNSIGNED,
+  conversation_id INT	UNSIGNED
+
+
+);
+
+/************* ALTER User Conversation for PK and FK *****************/
+
+ALTER TABLE User_Conversation
+  ADD CONSTRAINT pk_UserConversation
+    PRIMARY KEY (user_id, conversation_id);
+
+ALTER TABLE User_Conversation
+  ADD CONSTRAINT fk_userConversation_user
+    FOREIGN KEY (user_id)
+    REFERENCES User (id);
+
+ALTER TABLE User_Conversation
+  ADD CONSTRAINT fk_userConversation_conversation
+    FOREIGN KEY (conversation_id)
+    REFERENCES Conversation (id);
+
+/**************************************************************/    
+
+CREATE TABLE IF NOT EXISTS Message (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    author_id INT NOT NULL,
+    content TEXT NOT NULL,
+    conversation_id INT UNSIGNED
+ 
+);
+
+ALTER TABLE Message
+  ADD CONSTRAINT fk_message_conversation
+    FOREIGN KEY (conversation_id)
+    REFERENCES Conversation (id);

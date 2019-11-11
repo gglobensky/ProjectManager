@@ -1,0 +1,24 @@
+add-user
+INSERT INTO User(firstName, lastName, username, password, sex, birth, photo) VALUES('?firstName', '?lastName', '?username', '?password', '?sex', '?birth', '?photo');
+
+delete-user
+DELETE FROM User Where id = '?id'
+
+select-user
+SELECT * FROM User WHERE username = ('?username')
+
+select-users
+SELECT * FROM User;
+
+update-user
+UPDATE User 
+SET 
+    firstName = '?firstName',
+	lastName = '?lastName',
+	username = '?username',
+	password = '?password',
+	sex = '?sex',
+	birth = '?birth',
+	photo = '?photo'
+WHERE
+    id = ('?id');
