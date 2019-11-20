@@ -1,0 +1,7 @@
+Est-ce que je dois faire une fonction qui poll pour que quand je discute, mon tableau supdate quand je recois un msg
+Est-ce que je dois m'assurer d'effacer les Conversations qui n'ont plus de user (si tous les users se retirent de la conv)
+Qu'est-ce que je fais avec les messages des gens qui ont quittes la conversation (et quand la conversation est clause?)?
+Pourquoi mes views s'updatent mal(participants selection list, les cellules et quand elle se ferme) sans que je bouge quelque chose
+
+Bug - Quand on update un user, la photo reste pareille, même dans le picker
+Affichage blank dans onglet profil parfois (bouger pour regler)

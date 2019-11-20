@@ -16,6 +16,10 @@ class LoginViewController: UIViewController{
 
     private var user: User? = nil
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController!.navigationBar.topItem!.title = "Gestionnaire de projet";
+    }
+    
     @IBAction func connexionButtonPressed(_ sender: Any) {
         let usernameText = username.text
         let passwordText = password.text
@@ -32,6 +36,7 @@ class LoginViewController: UIViewController{
 
                             let defaults = UserDefaults.standard
                             defaults.set(usernameText, forKey: "CONNECTED_USER")
+                            defaults.set(self.user?.id, forKey: "CONNECTED_USERID")
                             
                             DispatchQueue.main.async {
                                 self.performSegue(withIdentifier: "showHub", sender: self)

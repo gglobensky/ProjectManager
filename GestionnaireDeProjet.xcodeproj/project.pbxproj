@@ -18,6 +18,14 @@
 		2F9400A723743FB7007D69D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9400A623743FB7007D69D6 /* LoginViewController.swift */; };
 		2F9400A923745525007D69D6 /* ColleaguesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9400A823745525007D69D6 /* ColleaguesListViewController.swift */; };
 		2F9400AB2374659B007D69D6 /* ColleagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9400AA2374659B007D69D6 /* ColleagueViewController.swift */; };
+		2FB92E1323811C31006AE9C6 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1223811C31006AE9C6 /* ConversationsViewController.swift */; };
+		2FB92E1523813042006AE9C6 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1423813042006AE9C6 /* Conversation.swift */; };
+		2FB92E1723823065006AE9C6 /* ConversationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1623823065006AE9C6 /* ConversationsCell.swift */; };
+		2FB92E19238276AE006AE9C6 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E18238276AE006AE9C6 /* MessagesViewController.swift */; };
+		2FB92E1B238279F6006AE9C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1A238279F6006AE9C6 /* Message.swift */; };
+		2FB92E1D23828AC0006AE9C6 /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1C23828AC0006AE9C6 /* MessagesCell.swift */; };
+		2FB92E1F23829B61006AE9C6 /* UserFullName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1E23829B61006AE9C6 /* UserFullName.swift */; };
+		2FB92E212382B8A0006AE9C6 /* ColleagueSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +42,14 @@
 		2F9400A623743FB7007D69D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2F9400A823745525007D69D6 /* ColleaguesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleaguesListViewController.swift; sourceTree = "<group>"; };
 		2F9400AA2374659B007D69D6 /* ColleagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleagueViewController.swift; sourceTree = "<group>"; };
+		2FB92E1223811C31006AE9C6 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
+		2FB92E1423813042006AE9C6 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		2FB92E1623823065006AE9C6 /* ConversationsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsCell.swift; sourceTree = "<group>"; };
+		2FB92E18238276AE006AE9C6 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		2FB92E1A238279F6006AE9C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		2FB92E1C23828AC0006AE9C6 /* MessagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
+		2FB92E1E23829B61006AE9C6 /* UserFullName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFullName.swift; sourceTree = "<group>"; };
+		2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleagueSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +107,11 @@
 				2F9400A823745525007D69D6 /* ColleaguesListViewController.swift */,
 				2F9400AA2374659B007D69D6 /* ColleagueViewController.swift */,
 				2F069D532375347100E09D0A /* MainUITabBarController.swift */,
+				2FB92E1223811C31006AE9C6 /* ConversationsViewController.swift */,
+				2FB92E1623823065006AE9C6 /* ConversationsCell.swift */,
+				2FB92E18238276AE006AE9C6 /* MessagesViewController.swift */,
+				2FB92E1C23828AC0006AE9C6 /* MessagesCell.swift */,
+				2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -102,6 +123,9 @@
 				2F740E78232A55730059077F /* Info.plist */,
 				2F94009F2373CEB3007D69D6 /* MarthaRequest.swift */,
 				2F9400A12373E5CE007D69D6 /* User.swift */,
+				2FB92E1423813042006AE9C6 /* Conversation.swift */,
+				2FB92E1A238279F6006AE9C6 /* Message.swift */,
+				2FB92E1E23829B61006AE9C6 /* UserFullName.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -181,9 +205,17 @@
 				2F069D542375347100E09D0A /* MainUITabBarController.swift in Sources */,
 				2F740E6F232A55720059077F /* UserCreationViewController.swift in Sources */,
 				2F9400A923745525007D69D6 /* ColleaguesListViewController.swift in Sources */,
+				2FB92E1723823065006AE9C6 /* ConversationsCell.swift in Sources */,
 				2F740E6D232A55720059077F /* AppDelegate.swift in Sources */,
+				2FB92E19238276AE006AE9C6 /* MessagesViewController.swift in Sources */,
 				2F9400AB2374659B007D69D6 /* ColleagueViewController.swift in Sources */,
+				2FB92E1F23829B61006AE9C6 /* UserFullName.swift in Sources */,
+				2FB92E212382B8A0006AE9C6 /* ColleagueSelectionView.swift in Sources */,
+				2FB92E1323811C31006AE9C6 /* ConversationsViewController.swift in Sources */,
+				2FB92E1B238279F6006AE9C6 /* Message.swift in Sources */,
 				2F9400A723743FB7007D69D6 /* LoginViewController.swift in Sources */,
+				2FB92E1D23828AC0006AE9C6 /* MessagesCell.swift in Sources */,
+				2FB92E1523813042006AE9C6 /* Conversation.swift in Sources */,
 				2F9400A02373CEB3007D69D6 /* MarthaRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

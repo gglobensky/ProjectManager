@@ -120,8 +120,8 @@ CREATE TABLE IF NOT EXISTS Message (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     author_id INT NOT NULL,
     content TEXT NOT NULL,
-    conversation_id INT UNSIGNED
- 
+    conversation_id INT UNSIGNED,
+    created_at TIMESTAMP NOT NULL
 );
 
 ALTER TABLE Message

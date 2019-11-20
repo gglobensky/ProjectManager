@@ -15,12 +15,12 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.string(from: self)
     }
-
+    
     var age: Int {
         return Calendar.current.dateComponents([.year], from: self, to: Date()).year!
     }
     
-
+    
 }
 
 extension String {
@@ -58,7 +58,7 @@ class MarthaRequest{
         request.httpMethod = "POST"
         request.addValue(auth, forHTTPHeaderField: "auth")
         request.httpBody = params
-
+        
         let task = session.dataTask(with: request as URLRequest) { (httpData, httpResponse, httpError) in
             
             if let error = httpError{
@@ -93,18 +93,18 @@ class MarthaRequest{
         request(query: query) {(jsonObjectResponse) in
             
             if let jsonObject = jsonObjectResponse,
-            let success = jsonObject["success"] as? Bool,
-            let itemsJson = jsonObject["data"] as? [Any] {
+                let success = jsonObject["success"] as? Bool,
+                let itemsJson = jsonObject["data"] as? [Any] {
                 if (success){
-                var users: [User] = []
-                
-                for itemJson in itemsJson{
-                    if let itemJsonObject = itemJson as? [String:Any],
-                        let user = User(json: itemJsonObject){
-                        users.append(user)
+                    var users: [User] = []
+                    
+                    for itemJson in itemsJson{
+                        if let itemJsonObject = itemJson as? [String:Any],
+                            let user = User(json: itemJsonObject){
+                            users.append(user)
+                        }
                     }
-                }
-                completion(users)
+                    completion(users)
                 } else {
                     print("fetch failed")
                     completion(nil)
@@ -115,8 +115,190 @@ class MarthaRequest{
                 completion(nil)
             }
         }
-            
+        
     }
+    
+    public static func addConversation(completion: @escaping (Int?) -> Void){
+        let query = "add-conversation"
+        
+        request(query: query) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool,
+                let id = jsonObject["lastInsertId"] as? Int {
+                if (success){
+                    
+                    completion(id)
+                    
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    public static func addUserConversation(user_id:Int, conversation_id:Int, completion: @escaping (Bool?) -> Void){
+        let query = "add-userConversation"
+        
+        let jsonObject: [Any]  = [
+            [
+                "user_id": user_id,
+                "conversation_id": conversation_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool{
+                if (success){
+                    completion(success)
+                    
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    public static func deleteUserConversation(user_id: Int, conversation_id:Int, completion: @escaping (Bool) -> Void){
+        let query = "delete-userConversation"
+        let jsonObject: [Any]  = [
+            [
+                "user_id": user_id,
+                "conversation_id": conversation_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool {
+                if (success){
+                    completion(success)
+                } else {
+                    print("fetch failed")
+                    completion(success)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(false)
+            }
+        }
+        
+    }
+    
+    public static func fetchConversations(id: Int, completion: @escaping ([Conversation]?) -> Void){
+        let query = "select-conversations"
+        let params = try! JSONSerialization.data(withJSONObject: ["user_id": id])
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool,
+                let itemsJson = jsonObject["data"] as? [Any] {
+                if (success){
+                    var conversations: [Conversation] = []
+                    
+                    for itemJson in itemsJson{
+                        if let itemJsonObject = itemJson as? [String:Any],
+                            let conversation = Conversation(json: itemJsonObject){
+                            conversations.append(conversation)
+                        }
+                    }
+                    completion(conversations)
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    public static func fetchMessages(id: Int, completion: @escaping ([Message]?) -> Void){
+        let query = "select-messages"
+        let params = try! JSONSerialization.data(withJSONObject: ["conversation_id": id])
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool,
+                let itemsJson = jsonObject["data"] as? [Any] {
+                if (success){
+                    var messages: [Message] = []
+                    
+                    for itemJson in itemsJson{
+                        if let itemJsonObject = itemJson as? [String:Any],
+                            let message = Message(json: itemJsonObject){
+                            
+                            messages.append(message)
+                        }
+                    }
+                    completion(messages)
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    public static func deleteMessage(user_id: Int, message_id: Int, completion: @escaping (Bool) -> Void){
+        let query = "delete-message"
+        
+        let jsonObject: [Any]  = [
+            [
+                "user_id": user_id,
+                "message_id": message_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool {
+                if (success){
+                    completion(success)
+                } else {
+                    print("fetch failed")
+                    completion(success)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(false)
+            }
+        }
+        
+    }
+    
     
     public static func deleteUser(id: Int, completion: @escaping (Bool) -> Void){
         let query = "delete-user"
@@ -176,6 +358,41 @@ class MarthaRequest{
         
     }
     
+    public static func fetchUserById(user_id: Int, completion: @escaping ([UserFullName]?) -> Void){
+        let query = "select-userById"
+        let params = try! JSONSerialization.data(withJSONObject: ["user_id": user_id])
+        
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool,
+                let itemsJson = jsonObject["data"] as? [Any] {
+                if (success){
+                    var users: [UserFullName] = []
+                    
+                    for itemJson in itemsJson{
+                        
+                        if let itemJsonObject = itemJson as? [String:Any],
+                            let user = UserFullName(json: itemJsonObject){
+                            
+                            users.append(user)
+                        }
+                    }
+                    
+                    completion(users)
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
     static func resize(image: UIImage, width: Int, height: Int) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), true, 1.0)
         image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
@@ -185,6 +402,77 @@ class MarthaRequest{
         
         return resizedImage
     }
+    
+    public static func updateMessage(message_id: Int, content: String, completion: @escaping (Bool) -> Void){
+        let query = "update-message"
+        
+        let jsonObject: [Any]  = [
+            [
+                "message_id": message_id,
+                "content": content
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool {
+                if (success){
+                    
+                    completion(success)
+                    
+                } else {
+                    print("fetch failed")
+                    completion(false)
+                }
+                
+            } else {
+                
+                print("Request failed, invalid format")
+                completion(false)
+            }
+        }
+        
+    }
+    
+    public static func addMessage(author_id: Int, content: String, conversation_id: Int, completion: @escaping (Message?) -> Void){
+        let query = "add-message"
+        
+        let jsonObject: [Any]  = [
+            [
+                "author_id": author_id,
+                "content": content,
+                "conversation_id": conversation_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool,
+                let id = jsonObject["lastInsertId"] as? Int {
+                if (success){
+                    
+                    let message = Message.getMessage(message_id: id, author_id: author_id, content: content)
+                    completion(message)
+                    
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    
     
     public static func addUser(firstName: String, lastName: String, username: String, password: String, sex: String, dateOfBirth: Date, photo: UIImage, completion: @escaping (User?) -> Void){
         let query = "add-user"
@@ -226,7 +514,7 @@ class MarthaRequest{
                 let success = jsonObject["success"] as? Bool,
                 let id = jsonObject["lastInsertId"] as? Int {
                 if (success){
-
+                    
                     let user = User(id: id, name: firstName, surname: lastName, username: username, password: password, sex: sex, dateOfBirth: dateOfBirth, photo: resizedPhoto!)
                     completion(user)
                     
@@ -236,7 +524,7 @@ class MarthaRequest{
                 }
                 
             } else {
-
+                
                 print("Request failed, invalid format")
                 completion(nil)
             }

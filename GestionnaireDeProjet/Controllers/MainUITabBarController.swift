@@ -10,19 +10,28 @@ import UIKit
 
 class MainUITabBarController : UITabBarController, UITabBarControllerDelegate{
 
-
+    let titles = ["Collègues", "Profil", "Conversations"]
+    
     override func viewDidLoad() {
         self.delegate = self
     }
+
     
     // UITabBarDelegate
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        self.navigationController!.navigationBar.topItem!.title = titles[item.tag];
 
-        if (self.selectedIndex == 1){
+        if (item.tag == 1){
             var controller = self.viewControllers![1] as! ColleagueViewController
             self.navigationItem.setHidesBackButton(true, animated:true);
             
             controller.showConnectedUser()
+        } else if item.tag == 2{
+            //var controller = self.viewControllers![2] as! ConversationsViewController
+            self.navigationItem.setHidesBackButton(false, animated:true);
+            
+            //controller.fillList()
         } else {
             self.navigationItem.setHidesBackButton(false, animated:true);
         }

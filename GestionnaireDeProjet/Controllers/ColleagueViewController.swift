@@ -37,6 +37,9 @@ class ColleagueViewController : UIViewController {
     }
     
     public func setUser(user: User){
+        let defaults = UserDefaults.standard
+        let connectedUserAlias = defaults.string(forKey: "CONNECTED_USER") ?? ""
+        
         if let userObject = user as? User{
             DispatchQueue.main.async {
                 if self.avatarImage != nil{
@@ -49,6 +52,12 @@ class ColleagueViewController : UIViewController {
                     self.age.text = "\(userObject.dateOfBirth.age)"
 
                     self.sex.text = userObject.sex
+                    
+                    if (connectedUserAlias == userObject.username){
+                        self.manageButtons(showButtons: true)
+                    } else {
+                        self.manageButtons(showButtons: false)
+                    }
                     
                     self.reloadInputViews()
                 }
@@ -76,6 +85,7 @@ class ColleagueViewController : UIViewController {
     }
     
     func manageButtons(showButtons: Bool){
+
         if showButtons{
             modifyButton.isEnabled = true
             modifyButton.isHidden = false
@@ -87,12 +97,13 @@ class ColleagueViewController : UIViewController {
             deleteButton.isEnabled = false
             deleteButton.isHidden = true
         }
+
     }
     
     public func showConnectedUser(){
-        
-        manageButtons(showButtons: true)
+    
         loadConnectedUser()
+        //manageButtons(showButtons: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -102,18 +113,16 @@ class ColleagueViewController : UIViewController {
             }
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         if ColleagueViewController.vcEntity == nil{
             ColleagueViewController.vcEntity = self
         }
+        
         let defaults = UserDefaults.standard
         let connectedUserAlias = defaults.string(forKey: "CONNECTED_USER") ?? ""
         
-        
-        if user == nil || user?.username != connectedUserAlias{
-            manageButtons(showButtons: false)
-        } else {
+        if (!(user == nil || user?.username != connectedUserAlias)){
             setUser(user: user!)
         }
     }
