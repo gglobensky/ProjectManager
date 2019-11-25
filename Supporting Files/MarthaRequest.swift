@@ -268,7 +268,7 @@ class MarthaRequest{
     }
     
     
-    public static func addProject(name: String, author_id: Int, completion: @escaping (Project?) -> Void){
+    public static func addProject(name: String, author_id: Int, completion: @escaping (Int?) -> Void){
            let query = "add-project"
     
            
@@ -289,8 +289,8 @@ class MarthaRequest{
                    let id = jsonObject["lastInsertId"] as? Int {
                    if (success){
                        
-                       let project = Project(json: jsonObject)
-                       completion(project)
+                    
+                       completion(id)
                        
                     
                    } else {
@@ -321,8 +321,10 @@ class MarthaRequest{
         request(query: query, params: params) {(jsonObjectResponse) in
             
             if let jsonObject = jsonObjectResponse,
-                let success = jsonObject["success"] as? Bool{
+                let success = jsonObject["success"] as? Bool,
+                let id = jsonObject["lastInsertId"] as? Int {
                 if (success){
+                    
                     completion(success)
                     
                 } else {

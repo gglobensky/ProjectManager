@@ -10,6 +10,7 @@
 		00BD6BD2238B98E20021E3A7 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */; };
 		00BD6BD4238B9ED90021E3A7 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD3238B9ED90021E3A7 /* Project.swift */; };
 		00BD6BD6238BC1810021E3A7 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */; };
+		1DE2EDAD238C155300A99B5A /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE2EDAC238C155300A99B5A /* CreateProjectViewController.swift */; };
 		2F069D542375347100E09D0A /* MainUITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F069D532375347100E09D0A /* MainUITabBarController.swift */; };
 		2F740E6D232A55720059077F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F740E6C232A55720059077F /* AppDelegate.swift */; };
 		2F740E6F232A55720059077F /* UserCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F740E6E232A55720059077F /* UserCreationViewController.swift */; };
@@ -35,6 +36,7 @@
 		00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		00BD6BD3238B9ED90021E3A7 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		1DE2EDAC238C155300A99B5A /* CreateProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		2F069D532375347100E09D0A /* MainUITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUITabBarController.swift; sourceTree = "<group>"; };
 		2F740E69232A55720059077F /* GestionnaireDeProjet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GestionnaireDeProjet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F740E6C232A55720059077F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */,
 				00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */,
 				00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */,
+				1DE2EDAC238C155300A99B5A /* CreateProjectViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			files = (
 				2F9400A22373E5CE007D69D6 /* User.swift in Sources */,
 				2F069D542375347100E09D0A /* MainUITabBarController.swift in Sources */,
+				1DE2EDAD238C155300A99B5A /* CreateProjectViewController.swift in Sources */,
 				2F740E6F232A55720059077F /* UserCreationViewController.swift in Sources */,
 				2F9400A923745525007D69D6 /* ColleaguesListViewController.swift in Sources */,
 				2FB92E1723823065006AE9C6 /* ConversationsCell.swift in Sources */,
@@ -376,6 +380,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,7 +388,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gglobensky.Exercice6-4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -393,6 +398,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -400,7 +406,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gglobensky.Exercice6-4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
