@@ -206,6 +206,141 @@ class MarthaRequest{
         
     }
     
+    public static func deleteProject(user_id: Int, project_id:Int, completion: @escaping (Bool) -> Void){
+        let query = "delete-project"
+        let jsonObject: [Any]  = [
+            [
+                "user_id": user_id,
+                "project_id": project_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool {
+                if (success){
+                    completion(success)
+                } else {
+                    print("fetch failed")
+                    completion(success)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(false)
+            }
+        }
+        
+    }
+    
+    public static func fetchProjects(id: Int, completion: @escaping ([Project]?) -> Void){
+        let query = "select-projects"
+        let params = try! JSONSerialization.data(withJSONObject: ["user_id": id])
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool,
+                let itemsJson = jsonObject["data"] as? [Any] {
+                if (success){
+                    var projects: [Project] = []
+                    
+                    for itemJson in itemsJson{
+                        if let itemJsonObject = itemJson as? [String:Any],
+                            let project = Project(json: itemJsonObject){
+                           projects.append(project)
+                        }
+                    }
+                    completion(projects)
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    
+    public static func addProject(name: String, author_id: Int, completion: @escaping (Project?) -> Void){
+           let query = "add-project"
+    
+           
+         
+           let jsonObject: [Any]  = [
+               [
+                   "name": name,
+                   "author_id": author_id
+                   
+               ]
+           ]
+           
+           let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+           request(query: query, params: params) {(jsonObjectResponse) in
+               
+               if let jsonObject = jsonObjectResponse,
+                   let success = jsonObject["success"] as? Bool,
+                   let id = jsonObject["lastInsertId"] as? Int {
+                   if (success){
+                       
+                       let project = Project(json: jsonObject)
+                       completion(project)
+                       
+                    
+                   } else {
+                       print("add failed")
+                       completion(nil)
+                   }
+                   
+               } else {
+                   
+                   print("Request failed, invalid format")
+                   completion(nil)
+               }
+           }
+           
+       }
+    
+    public static func addUserProject(user_id:Int, project_id:Int, completion: @escaping (Bool?) -> Void){
+        let query = "add-userProject"
+        
+        let jsonObject: [Any]  = [
+            [
+                "user_id": user_id,
+                "project_id": project_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool{
+                if (success){
+                    completion(success)
+                    
+                } else {
+                    print("add failed")
+                    completion(nil)
+                }
+                
+            } else {
+                
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
+    
+    
     public static func fetchConversations(id: Int, completion: @escaping ([Conversation]?) -> Void){
         let query = "select-conversations"
         let params = try! JSONSerialization.data(withJSONObject: ["user_id": id])

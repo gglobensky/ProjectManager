@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00BD6BD2238B98E20021E3A7 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */; };
+		00BD6BD4238B9ED90021E3A7 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD3238B9ED90021E3A7 /* Project.swift */; };
+		00BD6BD6238BC1810021E3A7 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */; };
 		2F069D542375347100E09D0A /* MainUITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F069D532375347100E09D0A /* MainUITabBarController.swift */; };
 		2F740E6D232A55720059077F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F740E6C232A55720059077F /* AppDelegate.swift */; };
 		2F740E6F232A55720059077F /* UserCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F740E6E232A55720059077F /* UserCreationViewController.swift */; };
@@ -29,6 +32,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
+		00BD6BD3238B9ED90021E3A7 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		2F069D532375347100E09D0A /* MainUITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUITabBarController.swift; sourceTree = "<group>"; };
 		2F740E69232A55720059077F /* GestionnaireDeProjet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GestionnaireDeProjet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F740E6C232A55720059077F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +118,8 @@
 				2FB92E18238276AE006AE9C6 /* MessagesViewController.swift */,
 				2FB92E1C23828AC0006AE9C6 /* MessagesCell.swift */,
 				2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */,
+				00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */,
+				00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -126,6 +134,7 @@
 				2FB92E1423813042006AE9C6 /* Conversation.swift */,
 				2FB92E1A238279F6006AE9C6 /* Message.swift */,
 				2FB92E1E23829B61006AE9C6 /* UserFullName.swift */,
+				00BD6BD3238B9ED90021E3A7 /* Project.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -208,7 +217,9 @@
 				2FB92E1723823065006AE9C6 /* ConversationsCell.swift in Sources */,
 				2F740E6D232A55720059077F /* AppDelegate.swift in Sources */,
 				2FB92E19238276AE006AE9C6 /* MessagesViewController.swift in Sources */,
+				00BD6BD6238BC1810021E3A7 /* ProjectCell.swift in Sources */,
 				2F9400AB2374659B007D69D6 /* ColleagueViewController.swift in Sources */,
+				00BD6BD2238B98E20021E3A7 /* ProjectViewController.swift in Sources */,
 				2FB92E1F23829B61006AE9C6 /* UserFullName.swift in Sources */,
 				2FB92E212382B8A0006AE9C6 /* ColleagueSelectionView.swift in Sources */,
 				2FB92E1323811C31006AE9C6 /* ConversationsViewController.swift in Sources */,
@@ -217,6 +228,7 @@
 				2FB92E1D23828AC0006AE9C6 /* MessagesCell.swift in Sources */,
 				2FB92E1523813042006AE9C6 /* Conversation.swift in Sources */,
 				2F9400A02373CEB3007D69D6 /* MarthaRequest.swift in Sources */,
+				00BD6BD4238B9ED90021E3A7 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
