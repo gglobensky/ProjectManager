@@ -59,16 +59,6 @@ class ProjectViewController : UITableViewController {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    func showMessage(message: String){
-        let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alertMessage.addAction(cancelAction)
-        
-        self.present(alertMessage, animated: true, completion: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self

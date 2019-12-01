@@ -10,7 +10,7 @@ import UIKit
 
 class ColleaguesListViewController : UITableViewController{
     
-    var usernames:[String] = []
+    var usernames:[User] = []
     
     private var user: User? = nil
     
@@ -37,7 +37,7 @@ class ColleaguesListViewController : UITableViewController{
                 
                 for user in fetchedUsers{
                     if (user.username != connectedUserAlias){
-                        self.usernames.append(user.username)
+                        self.usernames.append(user)
                     }
                 }
             }
@@ -50,7 +50,7 @@ class ColleaguesListViewController : UITableViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "UserDetails"){
             if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
-                MarthaRequest.fetchUser(username: usernames[indexPath.row]) { (users) in
+                MarthaRequest.fetchUser(username: usernames[indexPath.row].username) { (users) in
                     if let fetchedUser = users{
 
                         self.user = fetchedUser[0]
@@ -75,7 +75,8 @@ class ColleaguesListViewController : UITableViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = usernames[indexPath.row]
+        cell.textLabel?.text = usernames[indexPath.row].username
+        cell.imageView?.image = usernames[indexPath.row].photo
         
         return cell
     }

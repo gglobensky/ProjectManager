@@ -56,20 +56,6 @@ class CreateProjectViewController: UIViewController, UITextFieldDelegate, UIImag
     }
     
     
-    
-    
-    func ShowMessage(message: String){
-        let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alertMessage.addAction(cancelAction)
-        
-        self.present(alertMessage, animated: true, completion: nil)
-    }
-
-    
-    
 }
     
     

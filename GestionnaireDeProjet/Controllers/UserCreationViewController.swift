@@ -19,6 +19,7 @@ class UserCreationViewController: UIViewController, UITextFieldDelegate, UIImage
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var avatarImage: UIImageView!
     
+    var doFillList:Bool = false
     var user: User? = nil
     
     @IBAction func avatarImageTapped(_ sender: UITapGestureRecognizer) {
@@ -36,13 +37,16 @@ class UserCreationViewController: UIViewController, UITextFieldDelegate, UIImage
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if user != nil{
+        if doFillList == true{
             fillFields()
+            doFillList = false
         }
+
     }
     
     public func setUser(userObj: User){
         self.user = userObj
+        doFillList = true
     }
     
     func fillFields(){
@@ -114,7 +118,7 @@ class UserCreationViewController: UIViewController, UITextFieldDelegate, UIImage
                             if newUser != nil{
                                 self.navigationController?.popViewController(animated: true)
                             } else {
-                                self.showMessage(message: "Pseudo indisponible")
+                                Helper.showMessage(message: "Pseudo indisponible", viewController: self)
                             }
                         }
                     })
@@ -122,22 +126,14 @@ class UserCreationViewController: UIViewController, UITextFieldDelegate, UIImage
                     verifyPassword(id: user!.id, firstName: nameText!, lastName: surnameText!, username: usernameText!, password: passwordText!, sex: sexText, dateOfBirth: datePicker.date, photo: avatarImage.image!)
                 }
             } else {
-                showMessage(message: "Les mots de passes ne sont pas identiques")
+                Helper.showMessage(message: "Les mots de passes ne sont pas identiques", viewController: self)
             }
         } else {
-            showMessage(message: "Vous devez remplir tous les champs")
+            Helper.showMessage(message: "Vous devez remplir tous les champs", viewController: self)
         }
     }
     
-    func showMessage(message: String){
-        let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alertMessage.addAction(cancelAction)
-        
-        self.present(alertMessage, animated: true, completion: nil)
-    }
+
     
     func updateUser(id: Int, firstName: String, lastName: String, username: String, password: String, sex: String, dateOfBirth: Date, photo: UIImage){
         MarthaRequest.updateUser(id: id, firstName: firstName, lastName: lastName, username: username, password: password, sex: sex, dateOfBirth: dateOfBirth, photo: photo, completion: {(newUser) in
@@ -150,7 +146,7 @@ class UserCreationViewController: UIViewController, UITextFieldDelegate, UIImage
                     self.navigationController?.popViewController(animated: true)
 
                 } else {
-                    self.showMessage(message: "Pseudo indisponible")
+                    Helper.showMessage(message: "Pseudo indisponible", viewController: self)
                 }
             }
         })
@@ -182,12 +178,12 @@ class UserCreationViewController: UIViewController, UITextFieldDelegate, UIImage
                             
                         } else {
                             DispatchQueue.main.async {
-                                self.showMessage(message: "Informations invalides")
+                                Helper.showMessage(message: "Informations invalides", viewController: self)
                             }
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self.showMessage(message: "Informations invalides")
+                            Helper.showMessage(message: "Informations invalides", viewController: self)
                         }
                     }
                 }

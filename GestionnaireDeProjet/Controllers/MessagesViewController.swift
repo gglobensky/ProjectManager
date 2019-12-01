@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MessagesViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MessagesViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
 
 
+    @IBOutlet weak var inputTextView: UITextView!
+    @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var inputTextField: UITextView!
     @IBOutlet weak var tableView: UITableView!
     var messages:[Message] = []
@@ -24,6 +26,9 @@ class MessagesViewController : UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         let defaults = UserDefaults.standard
         currentUserId = defaults.integer(forKey: "CONNECTED_USERID")
+        inputTextView.delegate = self
+        sendButton.isEnabled = false
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,7 +69,7 @@ class MessagesViewController : UIViewController, UITableViewDelegate, UITableVie
             
             self.present(alert, animated: true)
         } else {
-            showMessage(message: "Vous ne pouvez modifier que vos messages")
+            //showMessage(message: "Vous ne pouvez modifier que vos messages")
             tableView.cellForRow(at: indexPath)?.setSelected(false, animated: false)
             
         }
@@ -95,7 +100,7 @@ class MessagesViewController : UIViewController, UITableViewDelegate, UITableVie
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Supprimer") { (action, view, completion) in
             
-            if (connectedUserId == self.messages[indexPath.row].author_id){
+            if (self.messages.count > 0 && connectedUserId == self.messages[indexPath.row].author_id){
                 MarthaRequest.deleteMessage(user_id: self.messages[indexPath.row].author_id, message_id: self.messages[indexPath.row].message_id) { (success) in
                     if success{
                         
@@ -110,7 +115,8 @@ class MessagesViewController : UIViewController, UITableViewDelegate, UITableVie
                     }
                 }
             } else {
-                self.showMessage(message: "Vous ne pouvez pas effacer les messages des autres")
+                tableView.cellForRow(at: indexPath)?.setSelected(false, animated: false)
+                //Helper.showMessage(message: "Vous ne pouvez pas effacer les messages des autres", viewController: self)
             }
             completion(false)
         }
@@ -176,15 +182,13 @@ class MessagesViewController : UIViewController, UITableViewDelegate, UITableVie
         // Use the default size for all other rows.
         return val
     }
-
-    func showMessage(message: String){
-        let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alertMessage.addAction(cancelAction)
-        
-        self.present(alertMessage, animated: true, completion: nil)
-    }
     
+    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
+        if (textView.text.count == 0){
+            sendButton.isEnabled = false
+        }
+        else{
+            sendButton.isEnabled = true
+        }
+    }
 }

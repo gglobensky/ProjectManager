@@ -33,39 +33,32 @@ class LoginViewController: UIViewController{
                         
                         if self.user!.password == passwordText!.hmac(key: "test"){
                             print("Login successful")
-
+                            
                             let defaults = UserDefaults.standard
                             defaults.set(usernameText, forKey: "CONNECTED_USER")
                             defaults.set(self.user?.id, forKey: "CONNECTED_USERID")
                             
                             DispatchQueue.main.async {
+                                self.username.text = ""
+                                self.password.text = ""
+                                self.username.becomeFirstResponder()
                                 self.performSegue(withIdentifier: "showHub", sender: self)
                             }
                         } else {
                             DispatchQueue.main.async {
-                                self.showMessage(message: "Informations invalides")
+                                Helper.showMessage(message: "Informations invalides", viewController: self)
                             }
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self.showMessage(message: "Informations invalides")
+                            Helper.showMessage(message: "Informations invalides", viewController: self)
                         }
                     }
                 }
             }
         }
     }
-    
-    func showMessage(message: String){
-        let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alertMessage.addAction(cancelAction)
-        
-        self.present(alertMessage, animated: true, completion: nil)
-    }
-    
+
 
     
 }

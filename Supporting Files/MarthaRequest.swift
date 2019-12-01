@@ -614,23 +614,7 @@ class MarthaRequest{
     public static func addUser(firstName: String, lastName: String, username: String, password: String, sex: String, dateOfBirth: Date, photo: UIImage, completion: @escaping (User?) -> Void){
         let query = "add-user"
         
-        let photoHeight: Float = Float(photo.size.height)
-        let photoWidth: Float = Float(photo.size.width)
-        
-        var height: Int = MAXHEIGHT
-        var width: Int = MAXWIDTH
-        
-        if (photoHeight > photoWidth){
-            height = MAXHEIGHT
-            width = Int((photoWidth * Float(MAXHEIGHT) / photoHeight).rounded())
-        } else if (photoHeight < photoWidth){
-            height = Int((photoHeight * Float(MAXWIDTH) / photoWidth).rounded())
-            width = MAXWIDTH
-        }
-        
-        print("\(width), \(height)")
-        
-        let resizedPhoto = resize(image: photo, width: width, height: height)
+        let resizedPhoto = resizeImageWithAspectRatio(image: photo, size: 120)
         
         let jsonObject: [Any]  = [
             [
@@ -640,7 +624,7 @@ class MarthaRequest{
                 "password": password.hmac(key: "test"),
                 "sex": sex,
                 "birth": dateOfBirth.asString(),
-                "photo": convertImageToBase64(image: resizedPhoto!)
+                "photo": convertImageToBase64(image: resizedPhoto)
             ]
         ]
         
@@ -652,7 +636,7 @@ class MarthaRequest{
                 let id = jsonObject["lastInsertId"] as? Int {
                 if (success){
                     
-                    let user = User(id: id, name: firstName, surname: lastName, username: username, password: password, sex: sex, dateOfBirth: dateOfBirth, photo: resizedPhoto!)
+                    let user = User(id: id, name: firstName, surname: lastName, username: username, password: password, sex: sex, dateOfBirth: dateOfBirth, photo: resizedPhoto)
                     completion(user)
                     
                 } else {
@@ -672,6 +656,8 @@ class MarthaRequest{
     public static func updateUser(id: Int, firstName: String, lastName: String, username: String, password: String, sex: String, dateOfBirth: Date, photo: UIImage, completion: @escaping (User?) -> Void){
         let query = "update-user"
         
+        let resizedPhoto = resizeImageWithAspectRatio(image: photo, size: 120)
+        
         let jsonObject: [Any]  = [
             [
                 "id": id,
@@ -681,7 +667,7 @@ class MarthaRequest{
                 "password": password.hmac(key: "test"),
                 "sex": sex,
                 "birth": dateOfBirth.asString(),
-                "photo": convertImageToBase64(image: photo)
+                "photo": convertImageToBase64(image: resizedPhoto)
             ]
         ]
         
@@ -709,6 +695,27 @@ class MarthaRequest{
         
     }
     
+    static func resizeImageWithAspectRatio(image: UIImage, size: Int) -> UIImage{
+        let photoHeight: Float = Float(image.size.height)
+        let photoWidth: Float = Float(image.size.width)
+        
+        var height: Int = size
+        var width: Int = size
+        
+        if (photoHeight > photoWidth){
+            height = size
+            width = Int((photoWidth * Float(size) / photoHeight).rounded())
+        } else if (photoHeight < photoWidth){
+            height = Int((photoHeight * Float(size) / photoWidth).rounded())
+            width = size
+        }
+        
+        print("\(width), \(height)")
+        
+        let resizedPhoto = resize(image: image, width: width, height: height)
+        return resizedPhoto!
+    }
+    
     static func convertImageToBase64(image: UIImage) -> String?{
         if let data: Data = image.pngData(){
             return data.base64EncodedString()
@@ -722,6 +729,6 @@ class MarthaRequest{
             return UIImage(data: data)
         } else {
             return nil
-        }
+        }	
     }
 }

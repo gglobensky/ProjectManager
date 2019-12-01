@@ -22,3 +22,4 @@ SET
 	photo = '?photo'
 WHERE
     id = ('?id');
+

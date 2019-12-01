@@ -12,17 +12,15 @@ class ConversationsViewController : UIViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet var colleagueSelectionView: ColleagueSelectionView!
-    
     var conversations:[Conversation] = []
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        self.view.addSubview(colleagueSelectionView)
+        /*self.view.addSubview(colleagueSelectionView)
         colleagueSelectionView.center = self.view.center
         
         colleagueSelectionView.tableView.dataSource = colleagueSelectionView
         colleagueSelectionView.tableView.delegate = colleagueSelectionView
-        ColleagueSelectionView.setUIView(uiview: colleagueSelectionView)
+        ColleagueSelectionView.setUIView(uiview: colleagueSelectionView)*/
         
     }
     
@@ -51,16 +49,13 @@ class ConversationsViewController : UIViewController, UITableViewDelegate, UITab
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+
     
-    func showMessage(message: String){
-        let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-        
-        alertMessage.addAction(cancelAction)
-        
-        self.present(alertMessage, animated: true, completion: nil)
+    @objc func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!)
+    {
+        print("myRightSideBarButtonItemTapped")
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +64,12 @@ class ConversationsViewController : UIViewController, UITableViewDelegate, UITab
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
+        
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(myRightSideBarButtonItemTapped))
+        navigationItem.rightBarButtonItems = [add]
+
     }
-    
+
     func tableView(_ tableView: UITableView,
                             heightForRowAt indexPath: IndexPath) -> CGFloat {
 

@@ -1,12 +1,13 @@
 //
-//  ColleagueSelectionView.swift
+//  ColleagueSelectionViewController.swift
 //  GestionnaireDeProjet
 //
-//  Created by Guillaume Globensky on 2019-11-18.
+//  Created by Guillaume Globensky on 2019-11-30.
 //  Copyright © 2019 Guillaume Globensky. All rights reserved.
 //
 
 import UIKit
+
 
 struct UsernameID{
     var id:Int
@@ -18,25 +19,14 @@ struct UsernameID{
     }
 }
 
-extension UIView {
-    var parentViewController: UIViewController? {
-        var parentResponder: UIResponder? = self
-        while parentResponder != nil {
-            parentResponder = parentResponder!.next
-            if let viewController = parentResponder as? UIViewController {
-                return viewController
-            }
-        }
-        return nil
-    }
-}
-
-class ColleagueSelectionView : UIView, UITableViewDelegate, UITableViewDataSource  {
-
-    @IBOutlet weak var tableView: UITableView!
+class ColleagueSelectionViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
     var usernames:[UsernameID] = []
     var selectedUsernames:[String] = []
-    static var uiview:UIView? = nil
+    
+    var searching:Bool = false
+    
+    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func acceptButtonPressed(_ sender: Any) {
         var conversation_id:Int = 0
@@ -62,59 +52,50 @@ class ColleagueSelectionView : UIView, UITableViewDelegate, UITableViewDataSourc
                 MarthaRequest.addUserConversation(user_id: connectedUserId, conversation_id: conversation_id) { (success) in
                     if let fetchResponse = success{
                         print("Added a conversation to yourself successfully")
-                        let cv = self.parentViewController as? ConversationsViewController
                         DispatchQueue.main.async {
-                            cv?.colleagueSelectionView.removeFromSuperview()
-                            cv?.fillList()
-                            self.setNeedsDisplay()
+                            self.navigationController?.popViewController(animated: true)
                         }
+
                     }
                 }
             }
+            
+        }
+    }
 
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
-    @IBAction func cancelButtonPressed(_ sender: Any) {
+    override func viewDidLoad() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        
     }
-    
-    public static func setUIView(uiview:UIView){
-        self.uiview = uiview
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-    
-    override func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-        commonInit()
-    }
-    
-    private func commonInit() {
-
-    }
-    
-    override func willMove(toSuperview newSuperview: UIView?) {
-        super.willMove(toSuperview: newSuperview)
+    override func viewDidAppear(_ animated: Bool) {
         fillList()
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searching{
+            return searchResults.count
+        }
         return usernames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if (usernames.count > indexPath.row){
-            cell.textLabel?.text = usernames[indexPath.row].username
-            
+        if (!searching){
+            if (usernames.count > indexPath.row){
+                cell.textLabel?.text = usernames[indexPath.row].username
+                
+                cell.selectionStyle = .none
+            }
+        }
+        else{
+            cell.textLabel?.text = searchResults[indexPath.row]
+    
             cell.selectionStyle = .none
         }
         return cell
@@ -132,22 +113,29 @@ class ColleagueSelectionView : UIView, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let cell = tableView.cellForRow(at: indexPath)!
         
-        if (selectedUsernames.contains(usernames[indexPath.row].username)){
+        var selectedUsername:String
+        if (searching){
+            selectedUsername = searchResults[indexPath.row]
+        }
+        else{
+            selectedUsername = usernames[indexPath.row].username
+        }
+        if (selectedUsernames.contains(selectedUsername)){
             selectedUsernames.remove(at: selectedUsernames.firstIndex(of: usernames[indexPath.row].username)!)
             
             /*cell.accessoryType = .none
-            tableView.reloadRows(at: [indexPath], with: .none)*/
-
+             tableView.reloadRows(at: [indexPath], with: .none)*/
+            
         } else {
-            selectedUsernames.append(usernames[indexPath.row].username)
-
+            selectedUsernames.append(selectedUsername)
+            
             /*cell.accessoryType = .checkmark
-            tableView.reloadRows(at: [indexPath], with: .none)*/
+             tableView.reloadRows(at: [indexPath], with: .none)*/
             //cell.backgroundColor = .blue
         }
         
-        let cells = self.tableView.visibleCells 
-
+        let cells = self.tableView.visibleCells
+        
         for cell in cells {
             if (selectedUsernames.contains(cell.textLabel!.text!)){
                 cell.accessoryType = .checkmark
@@ -156,20 +144,20 @@ class ColleagueSelectionView : UIView, UITableViewDelegate, UITableViewDataSourc
             }
             
         }
-
-        DispatchQueue.main.async {
-            self.setNeedsDisplay()
-        }
         
         DispatchQueue.main.async {
-            self.superview?.reloadInputViews()
+            self.tableView.setNeedsDisplay()
         }
+        
+        /*DispatchQueue.main.async {
+            self.superview?.reloadInputViews()
+        }*/
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
             //self.parentViewController?.reloadInputViews()
         }
-
+        
         
         //self.superview?.subviews.re
         
@@ -181,7 +169,7 @@ class ColleagueSelectionView : UIView, UITableViewDelegate, UITableViewDataSourc
     public func fillList(){
         let defaults = UserDefaults.standard
         let connectedUserAlias = defaults.string(forKey: "CONNECTED_USER") ?? ""
-
+        
         usernames.removeAll()
         
         MarthaRequest.fetchUsers() { (users) in
@@ -197,5 +185,14 @@ class ColleagueSelectionView : UIView, UITableViewDelegate, UITableViewDataSourc
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    var searchResults = [String]()
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let tmpUserNames = usernames.filter({$0.username.uppercased().prefix(searchText.count) == searchText.uppercased()})
+        searchResults = tmpUserNames.map { $0.username }
+        searching = searchText.count > 0
+        tableView.reloadData()
     }
 }

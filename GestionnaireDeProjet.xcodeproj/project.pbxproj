@@ -12,6 +12,7 @@
 		00BD6BD6238BC1810021E3A7 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */; };
 		1DE2EDAD238C155300A99B5A /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE2EDAC238C155300A99B5A /* CreateProjectViewController.swift */; };
 		2F069D542375347100E09D0A /* MainUITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F069D532375347100E09D0A /* MainUITabBarController.swift */; };
+		2F2880A72392BE1400BA8B5D /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2880A62392BE1400BA8B5D /* Helper.swift */; };
 		2F740E6D232A55720059077F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F740E6C232A55720059077F /* AppDelegate.swift */; };
 		2F740E6F232A55720059077F /* UserCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F740E6E232A55720059077F /* UserCreationViewController.swift */; };
 		2F740E72232A55720059077F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F740E70232A55720059077F /* Main.storyboard */; };
@@ -29,7 +30,7 @@
 		2FB92E1B238279F6006AE9C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1A238279F6006AE9C6 /* Message.swift */; };
 		2FB92E1D23828AC0006AE9C6 /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1C23828AC0006AE9C6 /* MessagesCell.swift */; };
 		2FB92E1F23829B61006AE9C6 /* UserFullName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E1E23829B61006AE9C6 /* UserFullName.swift */; };
-		2FB92E212382B8A0006AE9C6 /* ColleagueSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */; };
+		2FF788E32392839B0014BA36 /* ColleagueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788E22392839B0014BA36 /* ColleagueSelectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		1DE2EDAC238C155300A99B5A /* CreateProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		2F069D532375347100E09D0A /* MainUITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUITabBarController.swift; sourceTree = "<group>"; };
+		2F2880A62392BE1400BA8B5D /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		2F740E69232A55720059077F /* GestionnaireDeProjet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GestionnaireDeProjet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F740E6C232A55720059077F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F740E6E232A55720059077F /* UserCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreationViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +59,7 @@
 		2FB92E1A238279F6006AE9C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2FB92E1C23828AC0006AE9C6 /* MessagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
 		2FB92E1E23829B61006AE9C6 /* UserFullName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFullName.swift; sourceTree = "<group>"; };
-		2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleagueSelectionView.swift; sourceTree = "<group>"; };
+		2FF788E22392839B0014BA36 /* ColleagueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleagueSelectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,10 +121,10 @@
 				2FB92E1623823065006AE9C6 /* ConversationsCell.swift */,
 				2FB92E18238276AE006AE9C6 /* MessagesViewController.swift */,
 				2FB92E1C23828AC0006AE9C6 /* MessagesCell.swift */,
-				2FB92E202382B8A0006AE9C6 /* ColleagueSelectionView.swift */,
 				00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */,
 				00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */,
 				1DE2EDAC238C155300A99B5A /* CreateProjectViewController.swift */,
+				2FF788E22392839B0014BA36 /* ColleagueSelectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -138,6 +140,7 @@
 				2FB92E1A238279F6006AE9C6 /* Message.swift */,
 				2FB92E1E23829B61006AE9C6 /* UserFullName.swift */,
 				00BD6BD3238B9ED90021E3A7 /* Project.swift */,
+				2F2880A62392BE1400BA8B5D /* Helper.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -221,14 +224,15 @@
 				2FB92E1723823065006AE9C6 /* ConversationsCell.swift in Sources */,
 				2F740E6D232A55720059077F /* AppDelegate.swift in Sources */,
 				2FB92E19238276AE006AE9C6 /* MessagesViewController.swift in Sources */,
+				2F2880A72392BE1400BA8B5D /* Helper.swift in Sources */,
 				00BD6BD6238BC1810021E3A7 /* ProjectCell.swift in Sources */,
 				2F9400AB2374659B007D69D6 /* ColleagueViewController.swift in Sources */,
 				00BD6BD2238B98E20021E3A7 /* ProjectViewController.swift in Sources */,
 				2FB92E1F23829B61006AE9C6 /* UserFullName.swift in Sources */,
-				2FB92E212382B8A0006AE9C6 /* ColleagueSelectionView.swift in Sources */,
 				2FB92E1323811C31006AE9C6 /* ConversationsViewController.swift in Sources */,
 				2FB92E1B238279F6006AE9C6 /* Message.swift in Sources */,
 				2F9400A723743FB7007D69D6 /* LoginViewController.swift in Sources */,
+				2FF788E32392839B0014BA36 /* ColleagueSelectionViewController.swift in Sources */,
 				2FB92E1D23828AC0006AE9C6 /* MessagesCell.swift in Sources */,
 				2FB92E1523813042006AE9C6 /* Conversation.swift in Sources */,
 				2F9400A02373CEB3007D69D6 /* MarthaRequest.swift in Sources */,
