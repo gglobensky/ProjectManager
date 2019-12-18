@@ -206,8 +206,8 @@ class MarthaRequest{
         
     }
     
-    public static func deleteProject(user_id: Int, project_id:Int, completion: @escaping (Bool) -> Void){
-        let query = "delete-project"
+    public static func deleteUserProject(user_id: Int, project_id:Int, completion: @escaping (Bool) -> Void){
+        let query = "delete-userProject"
         let jsonObject: [Any]  = [
             [
                 "user_id": user_id,
@@ -235,6 +235,64 @@ class MarthaRequest{
         }
         
     }
+    public static func deleteAllProject( project_id:Int, completion: @escaping (Bool) -> Void){
+        let query = "delete-allProject"
+        let jsonObject: [Any]  = [
+            [
+                "project_id": project_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool {
+                if (success){
+                    completion(success)
+                } else {
+                    print("fetch failed")
+                    completion(success)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(false)
+            }
+        }
+        
+    }
+    
+    public static func deleteProject( project_id:Int, completion: @escaping (Bool) -> Void){
+        let query = "delete-project"
+        let jsonObject: [Any]  = [
+            [
+                "project_id": project_id
+            ]
+        ]
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool {
+                if (success){
+                    completion(success)
+                } else {
+                    print("fetch failed")
+                    completion(success)
+                }
+                
+            } else {
+                print("Request failed, invalid format")
+                completion(false)
+            }
+        }
+        
+    }
+    
     
     public static func fetchProjects(id: Int, completion: @escaping ([Project]?) -> Void){
         let query = "select-projects"
@@ -300,7 +358,7 @@ class MarthaRequest{
                    
                } else {
                    
-                   print("Request failed, invalid format")
+                   print("Request failed, invalid format addProject")
                    completion(nil)
                }
            }
@@ -334,7 +392,7 @@ class MarthaRequest{
                 
             } else {
                 
-                print("Request failed, invalid format")
+                print("Request failed, invalid format UserProject")
                 completion(nil)
             }
         }

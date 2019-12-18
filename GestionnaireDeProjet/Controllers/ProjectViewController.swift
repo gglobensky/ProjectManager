@@ -34,13 +34,15 @@ class ProjectViewController : UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let project = self.projects[indexPath.row]
+        let defaults = UserDefaults.standard
+        let connectedUserId = defaults.integer(forKey: "CONNECTED_USERID")
+        if(self.projects[indexPath.row].author_id != connectedUserId)
+        {
         let deleteAction = UIContextualAction(style: .destructive, title: "Quitter") { (action, view, completion) in
             
-            let project = self.projects[indexPath.row]
-            let defaults = UserDefaults.standard
-            let connectedUserId = defaults.integer(forKey: "CONNECTED_USERID")
             
-            MarthaRequest.deleteProject(user_id: connectedUserId, project_id: project.id ) { (success) in
+            MarthaRequest.deleteUserProject(user_id: connectedUserId, project_id: project.id ) { (success) in
                 if (success){
                     //self.fillList()
                     DispatchQueue.main.async {
@@ -57,6 +59,46 @@ class ProjectViewController : UITableViewController {
             completion(false)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
+        else
+        {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Detruire") { (action, view, completion) in
+                
+                
+                MarthaRequest.deleteAllProject( project_id: project.id ) { (success) in
+                    if (success){
+                        MarthaRequest.deleteProject( project_id: project.id )
+                        {
+                            (success) in
+                            if (success)
+                            {
+                                        //self.fillList()
+                                        DispatchQueue.main.async
+                                            {
+                                            self.projects.remove(at: indexPath.row)
+                                            self.tableView.reloadData()
+                                            completion(true)
+                                            }
+                                        }
+                                        else
+                                        {
+                                        print("delete failed")
+                                        completion(false)
+                                        }
+                        }
+                    }
+                        else
+                            {
+                            
+                                print("delete failed")
+                                completion(false)
+                            }
+                }
+                
+                completion(false)
+            }
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
     }
     
     override func viewDidLoad() {
