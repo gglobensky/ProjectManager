@@ -27,7 +27,7 @@ class DetailProjectController : UIViewController, UITextFieldDelegate, UIImagePi
         
         if (self.Project != nil){
             ProjectNameLabel.text = self.Project?.name
-            AuthorNameLabel.text = self.AuthorName
+            AuthorNameLabel.text = String(self.Project!.author_id)
             tableView.dataSource = self
             tableView.delegate = self
         }
