@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0069E6FA23A9E22B00CB5398 /* DetailProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0069E6F923A9E22B00CB5398 /* DetailProjectController.swift */; };
+		0069E6FC23A9ED6B00CB5398 /* CreateMeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0069E6FB23A9ED6B00CB5398 /* CreateMeetingViewController.swift */; };
 		00BD6BD2238B98E20021E3A7 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */; };
 		00BD6BD4238B9ED90021E3A7 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD3238B9ED90021E3A7 /* Project.swift */; };
 		00BD6BD6238BC1810021E3A7 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0069E6F923A9E22B00CB5398 /* DetailProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProjectController.swift; sourceTree = "<group>"; };
+		0069E6FB23A9ED6B00CB5398 /* CreateMeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMeetingViewController.swift; sourceTree = "<group>"; };
 		00BD6BD1238B98E20021E3A7 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		00BD6BD3238B9ED90021E3A7 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 				00BD6BD5238BC1810021E3A7 /* ProjectCell.swift */,
 				1DE2EDAC238C155300A99B5A /* CreateProjectViewController.swift */,
 				2FF788E22392839B0014BA36 /* ColleagueSelectionViewController.swift */,
+				0069E6F923A9E22B00CB5398 /* DetailProjectController.swift */,
+				0069E6FB23A9ED6B00CB5398 /* CreateMeetingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -226,6 +232,7 @@
 				2FB92E19238276AE006AE9C6 /* MessagesViewController.swift in Sources */,
 				2F2880A72392BE1400BA8B5D /* Helper.swift in Sources */,
 				00BD6BD6238BC1810021E3A7 /* ProjectCell.swift in Sources */,
+				0069E6FA23A9E22B00CB5398 /* DetailProjectController.swift in Sources */,
 				2F9400AB2374659B007D69D6 /* ColleagueViewController.swift in Sources */,
 				00BD6BD2238B98E20021E3A7 /* ProjectViewController.swift in Sources */,
 				2FB92E1F23829B61006AE9C6 /* UserFullName.swift in Sources */,
@@ -233,6 +240,7 @@
 				2FB92E1B238279F6006AE9C6 /* Message.swift in Sources */,
 				2F9400A723743FB7007D69D6 /* LoginViewController.swift in Sources */,
 				2FF788E32392839B0014BA36 /* ColleagueSelectionViewController.swift in Sources */,
+				0069E6FC23A9ED6B00CB5398 /* CreateMeetingViewController.swift in Sources */,
 				2FB92E1D23828AC0006AE9C6 /* MessagesCell.swift in Sources */,
 				2FB92E1523813042006AE9C6 /* Conversation.swift in Sources */,
 				2F9400A02373CEB3007D69D6 /* MarthaRequest.swift in Sources */,

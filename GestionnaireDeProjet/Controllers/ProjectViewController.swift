@@ -18,6 +18,7 @@ class ProjectViewController : UITableViewController {
    
     
     var projects:[Project] = []
+    var result:Project?
     
     
   /*
@@ -164,6 +165,25 @@ class ProjectViewController : UITableViewController {
         cell.textLabel?.text = projects[indexPath.row].name
        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(projects[indexPath.row])
+        
+        self.result = projects[indexPath.row]
+        
+        self.performSegue(withIdentifier: "DetailProject", sender: self)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailProject" {
+            
+            let destinationVC = segue.destination as! DetailProjectController
+            
+            destinationVC.Project = self.result
+            
+        }
     }
     
     

@@ -37,6 +37,8 @@ class LoginViewController: UIViewController{
                             let defaults = UserDefaults.standard
                             defaults.set(usernameText, forKey: "CONNECTED_USER")
                             defaults.set(self.user?.id, forKey: "CONNECTED_USERID")
+                                
+                            defaults.set(self.user?.name, forKey: "CONNECTED_USERNAME")
                             
                             DispatchQueue.main.async {
                                 self.username.text = ""

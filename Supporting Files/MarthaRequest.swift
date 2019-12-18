@@ -399,6 +399,54 @@ class MarthaRequest{
         
     }
     
+    public static func fetchParticipant(project_id:Int, completion: @escaping ([User]?) -> Void){
+        let query = "select-allParticipant"
+        
+        let jsonObject: [Any]  = [
+            [
+                "project_id": project_id
+              
+            ]
+               
+        ]
+        
+        
+        let params = try! JSONSerialization.data(withJSONObject: jsonObject)
+        request(query: query, params: params) {(jsonObjectResponse) in
+            
+            if let jsonObject = jsonObjectResponse,
+                let success = jsonObject["success"] as? Bool,
+             let itemsJson = jsonObject["data"] as? [Any] {
+                if (success){
+                    var users: [User] = []
+                    var flag:Int = 0
+                    
+                    for itemJson in itemsJson{
+                        if let itemJsonObject = itemJson as? [String:Any],
+                            let user = User(json: itemJsonObject){
+                            users.append(user)
+                            //flag+=1
+                            //print(flag)
+                            
+                        }
+                    }
+                    
+                    completion(users)
+                    
+                } else {
+                    print("fetch failed")
+                    completion(nil)
+                }
+                
+            } else {
+                
+                print("Request failed, invalid format")
+                completion(nil)
+            }
+        }
+        
+    }
+    
     
     
     public static func fetchConversations(id: Int, completion: @escaping ([Conversation]?) -> Void){
